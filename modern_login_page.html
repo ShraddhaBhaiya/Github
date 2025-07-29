@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Modern Auth System</title>
+  </head>
+  <body>
+    <div id="leftBox">
+      <div class="form-container">
+        <h4 id="registerHead">Create Account</h4>
+        <form id="registerForm" onsubmit="registerUser(event)">
+          <div class="input-group">
+            <label>Full Name</label>
+            <input placeholder="Enter your full name" id="name" class="input"/>
+          </div>
+          <div class="input-group">
+            <label>Email Address</label>
+            <input placeholder="Enter your email" id="email" class="input" type="email"/>
+          </div>
+          <div class="input-group">
+            <label>Mobile Number</label>
+            <input placeholder="Enter your mobile number" id="mobile" class="input" type="tel"/>
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input placeholder="Create a password" id="password" class="input" type="password"/>
+          </div>
+          <div class="input-group">
+            <label>Confirm Password</label>
+            <input placeholder="Confirm your password" id="confirmpassword" class="input" type="password"/>
+          </div>
+          <h4 id="register_msg" class="message"></h4>
+          <button id="registerBtn" type="submit">Create Account</button>
+        </form>
+
+        <div class="divider">
+          <span>Already have an account?</span>
+        </div>
+
+        <h4 id="loginHead">Sign In</h4>
+        <form id="LoginForm" onsubmit="loginUser(event)">
+          <div class="input-group">
+            <label>Email Address</label>
+            <input placeholder="Enter your email" id="loginemail" class="input" type="email">
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input placeholder="Enter your password" id="loginpassword" class="input" type="password"/>
+          </div>
+          <button id="loginBtn" type="submit">Sign In</button>
+          <h4 id="login_msg" class="message"></h4>
+        </form>
+      </div>
+    </div>
+
+    <div id="centerBox">
+      <div class="logo-container">
+        <i class="fa fa-book animate__animated animate__heartBeat animate__infinite"></i>
+        <h2>Welcome</h2>
+        <p id="aiw_notes">Your personal notes companion</p>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

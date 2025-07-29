@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Dashboard - Profile</title>
+  </head>
+  <body>
+    <div id="header">
+      <div class="header-left">
+        <div id="circlebox">
+          <input type="file" id="profileInput" onchange="uploadProfilePic()" accept="image/*"/>
+          <div class="upload-overlay">
+            <i class="fa fa-camera"></i>
+          </div>
+        </div>
+        <div class="user-info">
+          <h3 id="username">Loading...</h3>
+          <span class="user-status">Online</span>
+        </div>
+      </div>
+      <button onclick="logoutBtn()" id="logoutbtn">
+        <i class="fa fa-sign-out-alt"></i>
+        Logout
+      </button>
+    </div>
+
+    <div class="main-content">
+      <div class="welcome-section">
+        <h1>Welcome to your Dashboard</h1>
+        <p>Manage your companies and explore new opportunities</p>
+      </div>
+
+      <div id="sectionBox">
+        <div class="company_box">
+          <div class="icon-container">
+            <i class="fa fa-building" id="icon"></i>
+          </div>
+          <div class="content">
+            <h4 id="heading">Create Your Company</h4>
+            <p class="description">Start building your business profile</p>
+          </div>
+          <i class="fa fa-arrow-right arrow"></i>
+        </div>
+
+        <div class="company_box">
+          <div class="icon-container">
+            <i class="fa fa-chart-line" id="icon"></i>
+          </div>
+          <div class="content">
+            <h4 id="heading">Analytics Dashboard</h4>
+            <p class="description">Track your business performance</p>
+          </div>
+          <i class="fa fa-arrow-right arrow"></i>
+        </div>
+
+        <div class="company_box">
+          <div class="icon-container">
+            <i class="fa fa-users" id="icon"></i>
+          </div>
+          <div class="content">
+            <h4 id="heading">Team Management</h4>
+            <p class="description">Manage your team members</p>
+          </div>
+          <i class="fa fa-arrow-right arrow"></i>
+        </div>
+
+        <div class="company_box">
+          <div class="icon-container">
+            <i class="fa fa-cog" id="icon"></i>
+          </div>
+          <div class="content">
+            <h4 id="heading">Settings & Preferences</h4>
+            <p class="description">Customize your experience</p>
+          </div>
+          <i class="fa fa-arrow-right arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <script src="profile.js"></script>
+  </body>
+</html>

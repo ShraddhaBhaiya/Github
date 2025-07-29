@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Modern Auth System</title>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a1a1a;
+      }
+
+      /* LOGIN PAGE STYLES */
+      .login-page {
+        display: block;
+      }
+
+      .profile-page {
+        display: none;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #leftBox {
+        width: 380px;
+        min-height: 650px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        z-index: 2;
+      }
+
+      .form-container {
+        width: 100%;
+      }
+
+      #registerHead, #loginHead {
+        color: #1a1a1a;
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+      }
+
+      #loginHead {
+        margin-top: 30px;
+        font-size: 24px;
+        margin-bottom: 25px;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        letter-spacing: 0.2px;
+      }
+
+      .input {
+        border: 2px solid #e5e7eb;
+        width: 100%;
+        height: 48px;
+        padding: 0 16px;
+        outline: none;
+        background-color: #ffffff;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 15px;
+        color: #1f2937;
+        font-family: inherit;
+      }
+
+      .input::placeholder {
+        color: #9ca3af;
+        font-weight: 400;
+      }
+
+      .input:hover {
+        border-color: #d1d5db;
+        background-color: #fafafa;
+      }
+
+      .input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        background-color: #ffffff;
+      }
+
+      #registerBtn, #loginBtn {
+        width: 100%;
+        height: 48px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        font-family: inherit;
+        letter-spacing: 0.3px;
+      }
+
+      #registerBtn:hover, #loginBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      #registerBtn:active, #loginBtn:active {
+        transform: translateY(0);
+      }
+
+      .divider {
+        text-align: center;
+        margin: 35px 0 25px;
+        position: relative;
+      }
+
+      .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e5e7eb;
+      }
+
+      .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 20px;
+        color: #6b7280;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .message {
+        font-size: 13px;
+        margin-top: 12px;
+        text-align: center;
+        min-height: 20px;
+        font-weight: 500;
+        color: #ef4444;
+      }
+
+      #centerBox {
+        width: 300px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        position: fixed;
+        top: 20%;
+        right: 10%;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo-container {
+        text-align: center;
+        color: white;
+      }
+
+      .logo-container i {
+        font-size: 48px;
+        margin-bottom: 15px;
+        color: #fbbf24;
+      }
+
+      .logo-container h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.3px;
+      }
+
+      .logo-container p {
+        font-size: 14px;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      /* PROFILE PAGE STYLES */
+      #header {
+        width: 100%;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      #circlebox {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 3px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #circlebox:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      #profileInput {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+      }
+
+      .upload-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+
+      #circlebox:hover .upload-overlay {
+        opacity: 1;
+      }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      #username {
+        color: #1a1a1a;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+      }
+
+      .user-status {
+        color: #10b981;
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .user-status::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      #logoutbtn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        font-family: inherit;
+      }
+
+      #logoutbtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+      }
+
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 30px;
+      }
+
+      .welcome-section {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .welcome-section h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+      }
+
+      .welcome-section p {
+        font-size: 18px;
+        color: #6b7280;
+        font-weight: 400;
+      }
+
+      #sectionBox {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .company_box {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .company_box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .company_box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        color: white;
+      }
+
+      .company_box:hover::before {
+        opacity: 1;
+      }
+
+      .icon-container {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .company_box:hover .icon-container {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      #icon {
+        font-size: 20px;
+        color: white;
+      }
+
+      .content {
+        flex: 1;
+      }
+
+      #heading {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        letter-spacing: -0.2px;
+        color: inherit;
+      }
+
+      .description {
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 400;
+        line-height: 1.4;
+        transition: color 0.3s ease;
+      }
+
+      .company_box:hover .description {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .arrow {
+        font-size: 16px;
+        color: #9ca3af;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .company_box:hover .arrow {
+        color: white;
+        transform: translateX(4px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 20px;
+        }
+        
+        #leftBox {
+          width: 100%;
+          max-width: 400px;
+          padding: 30px;
+        }
+        
+        #centerBox {
+          position: static;
+          width: 100%;
+          max-width: 300px;
+          margin-bottom: 30px;
+          height: 150px;
+        }
+        
+        .login-page {
+          flex-direction: column;
+        }
+
+        #header {
+          padding: 0 20px;
+          height: 70px;
+        }
+        
+        .header-left {
+          gap: 15px;
+        }
+        
+        #circlebox {
+          width: 50px;
+          height: 50px;
+        }
+        
+        #username {
+          font-size: 18px;
+        }
+        
+        .main-content {
+          padding: 30px 20px;
+        }
+        
+        .welcome-section h1 {
+          font-size: 28px;
+        }
+        
+        .welcome-section p {
+          font-size: 16px;
+        }
+        
+        #sectionBox {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        
+        .company_box {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGIN/REGISTER PAGE -->
+    <div class="login-page" id="loginPage">
+      <div id="leftBox">
+        <div class="form-container">
+          <h4 id="registerHead">Create Account</h4>
+          <form id="registerForm" onsubmit="registerUser(event)">
+            <div class="input-group">
+              <label>Full Name</label>
+              <input placeholder="Enter your full name" id="name" class="input"/>
+            </div>
+            <div class="input-group">
+              <label>Email Address</label>
+              <input placeholder="Enter your email" id="email" class="input" type="email"/>
+            </div>
+            <div class="input-group">
+              <label>Mobile Number</label>
+              <input placeholder="Enter your mobile number" id="mobile" class="input" type="tel"/>
+            </div>
+            <div class="input-group">
+              <label>Password</label>
+              <input placeholder="Create a password" id="password" class="input" type="password"/>
+            </div>
+            <div class="input-group">
+              <label>Confirm Password</label>
+              <input placeholder="Confirm your password" id="confirmpassword" class="input" type="password"/>
+            </div>
+            <h4 id="register_msg" class="message"></h4>
+            <button id="registerBtn" type="submit">Create Account</button>
+          </form>
+
+          <div class="divider">
+            <span>Already have an account?</span>
+          </div>
+
+          <h4 id="loginHead">Sign In</h4>
+          <form id="LoginForm" onsubmit="loginUser(event)">
+            <div class="input-group">
+              <label>Email Address</label>
+              <input placeholder="Enter your email" id="loginemail" class="input" type="email">
+            </div>
+            <div class="input-group">
+              <label>Password</label>
+              <input placeholder="Enter your password" id="loginpassword" class="input" type="password"/>
+            </div>
+            <button id="loginBtn" type="submit">Sign In</button>
+            <h4 id="login_msg" class="message"></h4>
+          </form>
+        </div>
+      </div>
+
+      <div id="centerBox">
+        <div class="logo-container">
+          <i class="fa fa-book animate__animated animate__heartBeat animate__infinite"></i>
+          <h2>Welcome</h2>
+          <p id="aiw_notes">Your personal notes companion</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="profile-page" id="profilePage">
+      <div id="header">
+        <div class="header-left">
+          <div id="circlebox">
+            <input type="file" id="profileInput" onchange="uploadProfilePic()" accept="image/*"/>
+            <div class="upload-overlay">
+              <i class="fa fa-camera"></i>
+            </div>
+          </div>
+          <div class="user-info">
+            <h3 id="username">Loading...</h3>
+            <span class="user-status">Online</span>
+          </div>
+        </div>
+        <button onclick="logoutBtn()" id="logoutbtn">
+          <i class="fa fa-sign-out-alt"></i>
+          Logout
+        </button>
+      </div>
+
+      <div class="main-content">
+        <div class="welcome-section">
+          <h1>Welcome to your Dashboard</h1>
+          <p>Manage your companies and explore new opportunities</p>
+        </div>
+
+        <div id="sectionBox">
+          <div class="company_box">
+            <div class="icon-container">
+              <i class="fa fa-building" id="icon"></i>
+            </div>
+            <div class="content">
+              <h4 id="heading">Create Your Company</h4>
+              <p class="description">Start building your business profile</p>
+            </div>
+            <i class="fa fa-arrow-right arrow"></i>
+          </div>
+
+          <div class="company_box">
+            <div class="icon-container">
+              <i class="fa fa-chart-line" id="icon"></i>
+            </div>
+            <div class="content">
+              <h4 id="heading">Analytics Dashboard</h4>
+              <p class="description">Track your business performance</p>
+            </div>
+            <i class="fa fa-arrow-right arrow"></i>
+          </div>
+
+          <div class="company_box">
+            <div class="icon-container">
+              <i class="fa fa-users" id="icon"></i>
+            </div>
+            <div class="content">
+              <h4 id="heading">Team Management</h4>
+              <p class="description">Manage your team members</p>
+            </div>
+            <i class="fa fa-arrow-right arrow"></i>
+          </div>
+
+          <div class="company_box">
+            <div class="icon-container">
+              <i class="fa fa-cog" id="icon"></i>
+            </div>
+            <div class="content">
+              <h4 id="heading">Settings & Preferences</h4>
+              <p class="description">Customize your experience</p>
+            </div>
+            <i class="fa fa-arrow-right arrow"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // LOGIN CHECK AND PAGE NAVIGATION
+      function loginCheck() {
+        var check = sessionStorage.getItem("auth");
+        if(check != null) {
+          showProfilePage();
+          readname();
+          readUploadPic();
+        }
+      }
+
+      function showProfilePage() {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("profilePage").style.display = "block";
+        document.body.style.display = "block";
+        document.body.style.alignItems = "stretch";
+        document.body.style.justifyContent = "stretch";
+      }
+
+      function showLoginPage() {
+        document.getElementById("loginPage").style.display = "flex";
+        document.getElementById("profilePage").style.display = "none";
+        document.body.style.display = "flex";
+        document.body.style.alignItems = "center";
+        document.body.style.justifyContent = "center";
+      }
+
+      // REGISTER USER FUNCTION
+      function registerUser(e) {
+        e.preventDefault();
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var mobile = document.getElementById("mobile").value;
+        var password = document.getElementById("password").value;
+        var copassword = document.getElementById("confirmpassword").value;
+
+        var show = document.getElementById("register_msg")
+        if (name=="") {
+          show.innerHTML="Firstname is Required";
+          show.style.color = "#ef4444";
+        } else {
+          if (email=="") {
+            show.innerHTML="Email ID is Required";
+            show.style.color = "#ef4444";
+          } else {
+            if (mobile=="") {
+              show.innerHTML="Mobile Number is Required"
+              show.style.color = "#ef4444";
+            } else {
+              if (password=="") {
+                show.innerHTML="password is Required"
+                show.style.color = "#ef4444";
+              } else {
+                if (password==copassword) {
+                  var registerData = {
+                    username:name,
+                    useremail:email,
+                    usermobile:mobile,
+                    userpassword:password
+                  };
+
+                  var stringData = JSON.stringify(registerData);
+                  localStorage.setItem(email,stringData);
+
+                  show.innerHTML = name + ", Registered Successfully";
+                  show.style.color = "#10b981";
+                  
+                  // Clear form
+                  document.getElementById("registerForm").reset();
+                } else {
+                  show.innerHTML= "Password and Confirm Password should be same"
+                  show.style.color = "#ef4444";
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // LOGIN USER FUNCTION
+      function loginUser(e) {
+        e.preventDefault();
+        var email = document.getElementById("loginemail").value;
+        var password = document.getElementById("loginpassword").value;
+        var result = document.getElementById("login_msg");
+        var checkData = localStorage.getItem(email);
+        if(checkData==null){
+          result.innerHTML="User not Found !!";
+          result.style.color = "#ef4444";
+        } else {
+          var userDetails = JSON.parse(checkData);
+          var register_pass = userDetails.userpassword;
+          if (register_pass==password) {
+            result.innerHTML="Login Success";
+            result.style.color = "#10b981";
+            sessionStorage.setItem("auth",email);
+            setTimeout(function() {
+              showProfilePage();
+              readname();
+              readUploadPic();
+            }, 1000);
+          } else {
+            result.innerHTML = "Wrong Password";
+            result.style.color = "#ef4444";
+          }
+        }
+      }
+
+      // PROFILE PICTURE FUNCTIONS
+      function uploadProfilePic() {
+        var loginEmail = sessionStorage.getItem("auth");
+        var input = document.getElementById("profileInput");
+        var photoDetails = input.files[0];
+        
+        if (!photoDetails) return;
+        
+        console.log(photoDetails.type);
+        console.log(photoDetails.name);
+        var size = photoDetails.size/1024/1024;
+        if (size < 1) {
+          var reader = new FileReader();
+          reader.readAsDataURL(photoDetails);
+          reader.onload = function() {
+            var binary = reader.result;
+            localStorage.setItem(loginEmail+"_profile_pic",binary);
+            var box = document.getElementById("circlebox");
+            box.style.backgroundImage="url("+binary+")";
+            box.style.backgroundSize="cover";
+            box.style.backgroundPosition="center";
+          }
+        } else {
+          window.alert("Please upload an image file less than 1 MB")
+        }
+      }
+
+      function readUploadPic() {
+        var loginEmail = sessionStorage.getItem("auth");
+        var binary = localStorage.getItem(loginEmail+"_profile_pic");
+        if(binary) {
+          var box = document.getElementById("circlebox");
+          box.style.backgroundImage="url("+binary+")";
+          box.style.backgroundSize="cover";
+          box.style.backgroundPosition="center";
+        }
+      }
+
+      function readname(){
+        var loginEmail = sessionStorage.getItem("auth");
+        var data = localStorage.getItem(loginEmail);
+        if(data) {
+          var userObj = JSON.parse(data);
+          var name = userObj.username;
+          var userNameTag= document.getElementById("username");
+          userNameTag.innerHTML= name.charAt(0).toUpperCase() + name.slice(1);
+        }
+      }
+
+      function logoutBtn() {
+        var check = window.confirm("Are you sure you want to logout?")
+        if (check==true) {
+          sessionStorage.removeItem("auth");
+          showLoginPage();
+          // Clear login form
+          document.getElementById("LoginForm").reset();
+          document.getElementById("login_msg").innerHTML = "";
+        }
+      }
+
+      // Initialize the app
+      window.onload = function() {
+        loginCheck();
+      }
+    </script>
+  </body>
+</html>
